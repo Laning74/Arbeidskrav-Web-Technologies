@@ -56,9 +56,9 @@ const groceryTable = "grocerydata";
 
 const CREATE_GROCERY_TABLE = `CREATE TABLE if not exists ${groceryTable} (ID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, categories TEXT, price INT, cardNumber INT, store TEXT, location TEXT, date TEXT);`;
 
-I used the program postman.com to "shop" food and swipe the card, which was then stored in my SQLite database. Also used Postman to retrieve data from the database.
+I used the program postman.com to "shop" grocery and swipe the card, which was then stored in my SQLite database. Also used Postman to retrieve data from the database.
 
-To see what is in the database, I used the program DB Browser for SQLite.
+To see what is in the database, I used the program DB Browser for SQLite3.
 ## API Reference
 
 #### Post item
