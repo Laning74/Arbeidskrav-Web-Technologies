@@ -1,21 +1,22 @@
-
-# Arbeidskrav-Web-Technologies 
+# Arbeidskrav-Web-Technologies
 
 Mandatory Assignment for the subject Web technology Front-end development second year Gokstad Academy.
 
-
-
 ## This project
+
 The task we were given was to create a purchase tracking system.
 We were to build an API and the system should register and track grocery products that are scanned when the card is drawn in the store and stored in a database. The item that is purchased must then be retrieved from the database by searching for the card number, store, location or date the item was purchased.
+
 ## Program
- - Visual Studio Code
 
- - Node.js 
+- Visual Studio Code
 
- - Postman
+- Node.js
 
- - DB Browser for SQLite
+- Postman
+
+- DB Browser for SQLite
+
 ## Installation
 
 Install my-project with npm
@@ -26,6 +27,7 @@ Install my-project with npm
   npm install body-parser
   npm install nodemon
 ```
+
 Express.js, or simply Express, is a back end web application framework for building RESTful APIs with Node.js.
 
 SQLite3 we need to install when we are creating SQLite database.
@@ -33,7 +35,7 @@ SQLite3 we need to install when we are creating SQLite database.
 Body-parser is the Node.js body parsing middleware. It is responsible for parsing the incoming request bodies in a middleware before you handle it.
 
 Nodemon is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes.
-    
+
 ## Run Locally
 
 const port = process.env.PORT || 8080;
@@ -52,12 +54,11 @@ Start the server
   npm run start
 ```
 
-
 ## Database
 
 const sqlite3 = require("sqlite3");
 
-const db = new sqlite3.Database(__dirname + "/database.sqlite");
+const db = new sqlite3.Database(\_\_dirname + "/database.sqlite");
 
 const groceryTable = "grocerydata";
 
@@ -66,6 +67,7 @@ const CREATE_GROCERY_TABLE = `CREATE TABLE if not exists ${groceryTable} (ID INT
 I used the program postman.com to "shop" grocery and swipe the card, which was then stored in my SQLite database. Also used Postman to retrieve data from the database.
 
 To see what is in the database, I used the program DB Browser for SQLite3.
+
 ## API Reference
 
 #### Post item
@@ -73,8 +75,9 @@ To see what is in the database, I used the program DB Browser for SQLite3.
 ```http
   POST /item
 ```
-    {   
-    "name": "Milk",   
+
+    {
+    "name": "Milk",
     "category": "Dairy",
     "price": 33
     }
@@ -87,8 +90,8 @@ Items will be stored in memory until a card number is posted.
   POST /card
 ```
 
-    {   
-    "cardNumber": 1222,   
+    {
+    "cardNumber": 1222,
     "store": "Kiwi",
     "lcation": "Kragerø",
     "date": "09.11.22"
@@ -158,8 +161,6 @@ Return format: json
 
 Deletes all items and data registered to the given card.
 
-
 ## Authors
 
 - Ingvild Langeland
-
