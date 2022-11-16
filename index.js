@@ -1,18 +1,13 @@
 const sqlite3 = require("sqlite3");
 
-// const morgan = require("morgan");
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 8080;
 const app = express();
-// const path = require("path");
 
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 //connect to database
-// const db = new sqlite3.Database(path.join(__dirname + "/database.sqlite"));
 const db = new sqlite3.Database(__dirname + "/database.sqlite");
 
 let shoppingCart = [];
@@ -113,13 +108,6 @@ app.get("/card/:card_number", (req, res) => {
 
 // GET day (dato) and return all grocery (items) purchased on this day
 app.get("/day/:date", (req, res) => {
-  if (req.body) {
-    res.status(400);
-    return res.send(
-      "Nothing has been purchased in the selected month and year"
-    );
-  }
-
   let dataDate = [];
 
   db.serialize(() => {
@@ -143,19 +131,6 @@ app.get("/day/:date", (req, res) => {
 
 // GET month/year and return all grocery (items) purchased on this month/year
 app.get("/month/:month_number/:year_number", (req, res) => {
-  if (!req.body) {
-    return res.status(400).json({
-      error: "Nothing has been purchased in the selected month and year",
-    });
-  }
-
-  //   if (!req.params.month_number || !req.params.year_number) {
-  //     res
-  //       .status(404)
-  //       .send("Nothing has been purchased in the selected month and year");
-  //     return;
-  //   }
-
   let dataMonthYear = [];
 
   db.serialize(() => {
@@ -179,10 +154,7 @@ app.get("/month/:month_number/:year_number", (req, res) => {
 });
 
 // DELETE all purchases made on a specific card when you enter the cardNumber
-
 app.delete("/card/:card_number", (req, res) => {
-  console.log(req.body);
-
   db.serialize(() => {
     db.run(
       `DELETE FROM ${groceryTable} WHERE cardNumber = ?`,
@@ -217,6 +189,34 @@ app.get("/store/:store_name", (req, res) => {
       },
       () => {
         res.send(dataStore);
+      }
+    );
+  });
+});
+
+// GET data from the database for location
+app.get("/location/:location_name", (req, res) => {
+  let dataLocation = [];
+
+  db.serialize(() => {
+    db.each(
+      `SELECT * FROM ${groceryTable} WHERE location = ?`,
+      [req.params.location_name],
+      (err, row) => {
+        if (err) {
+          res.send("error");
+        }
+        dataLocation.push(`name: ${row.name}`);
+        dataLocation.push(`categories: ${row.categories}`);
+        dataLocation.push(`price: ${row.price}`);
+        dataLocation.push(`cardNumber: ${row.cardNumber}`);
+        dataLocation.push(`store: ${row.store}`);
+        dataLocation.push(`location: ${row.location}`);
+        dataLocation.push(`date: ${row.date}`);
+        console.log(dataLocation);
+      },
+      () => {
+        res.send(dataLocation);
       }
     );
   });
