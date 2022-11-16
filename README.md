@@ -27,8 +27,11 @@ Install my-project with npm
   npm install nodemon
 ```
 Express.js, or simply Express, is a back end web application framework for building RESTful APIs with Node.js.
+
 SQLite3 we need to install when we are creating SQLite database.
+
 Body-parser is the Node.js body parsing middleware. It is responsible for parsing the incoming request bodies in a middleware before you handle it.
+
 Nodemon is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes.
     
 ## Run Locally
