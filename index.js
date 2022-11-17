@@ -97,7 +97,6 @@ app.get("/card/:card_number", (req, res) => {
       `SELECT * FROM ${groceryTable} WHERE cardNumber = ${req.params.card_number}`,
       (err, row) => {
         card.push(row.name);
-        console.log();
       },
       () => {
         res.send(card);
